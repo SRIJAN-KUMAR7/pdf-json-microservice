@@ -10,7 +10,7 @@ export default function Navbar({ setPage }) {
   };
 
   return (
-    <nav className="fixed w-full z-50 top-0 left-0 bg-white dark:bg-black shadow-lg backdrop-blur-md">
+    <nav className="fixed w-full z-50 top-0 left-0 bg-whitebg-gradient-to-br from-[#070b14] via-gray-900 to-black shadow-lg backdrop-blur-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
         
         {/* Left: Logo */}
@@ -48,11 +48,11 @@ export default function Navbar({ setPage }) {
             Docs
           </a>
           <a 
-            href="/settings" 
-            onClick={(e) => handleNavigation('settings', e)} 
+            href="/contact" 
+            onClick={(e) => handleNavigation('contact', e)} 
             className="hover:text-gray-900 dark:hover:text-white transition"
           >
-            Settings
+           Contact
           </a>
         </div>
         
@@ -103,11 +103,11 @@ export default function Navbar({ setPage }) {
             Docs
           </a>
           <a 
-            href="/settings" 
-            onClick={(e) => handleNavigation('settings', e)} 
+            href="/contact" 
+            onClick={(e) => handleNavigation('contact', e)} 
             className="hover:text-gray-900 dark:hover:text-white transition w-full py-2"
           >
-            Settings
+         Contact
           </a>
           <a
             href="/docs"
