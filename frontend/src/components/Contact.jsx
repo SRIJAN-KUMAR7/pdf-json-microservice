@@ -34,6 +34,10 @@ export default function Contact() {
 
     setErrors({});
 
+    console.log("SERVICE_ID:", import.meta.env.VITE_SERVICE_ID);
+    console.log("TEMPLATE_ID:", import.meta.env.VITE_TEMPLATE_ID);
+    console.log("PUBLIC_KEY:", import.meta.env.VITE_PUBLIC_KEY);
+
     emailjs
       .sendForm(
         import.meta.env.VITE_SERVICE_ID,
@@ -46,18 +50,18 @@ export default function Contact() {
         setFormData({ name: "", email: "", message: "" });
         setTimeout(() => setStatus(""), 4000);
       })
-      .catch(() => {
-        setStatus("Something went wrong. Please try again.");
+      .catch((err) => {
+        console.error("EmailJS error:", err);
+        setStatus("⚠️Something went wrong. Please try again.");
       });
   };
 
   return (
     <section className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-br from-black to-gray-900 p-6">
       
-      {/* Left side - Connect info and logo */}
+      {/* Left side */}
       <div className="flex flex-col items-center md:items-start md:w-1/2 text-white px-6 mb-10 md:mb-0">
         <div aria-label="Connect logo" className="mb-6">
-          {/* Replace with your actual logo */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-20 h-20 text-green-500 drop-shadow-lg"
@@ -69,13 +73,16 @@ export default function Contact() {
             <path d="M12 4v16m8-8H4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <h2 className="text-4xl font-extrabold mb-4">Connect with Jsonify<span className="text-green-600">PDF</span></h2>
+        <h2 className="text-4xl font-extrabold mb-4">
+          Connect with <span className="text-green-600">JsonifyPDF</span>
+        </h2>
         <p className="text-lg text-gray-300 max-w-md">
-          Have questions or need assistance? Reach out to our support team anytime. We're here to help you integrate and use JsonifyPDF seamlessly.
+          Have questions or need assistance? Reach out to our support team anytime. 
+          We're here to help you integrate and use JsonifyPDF seamlessly.
         </p>
       </div>
 
-      {/* Right side - Contact form */}
+      {/* Right side - form */}
       <form
         ref={form}
         onSubmit={handleSubmit}
@@ -94,7 +101,7 @@ export default function Contact() {
             placeholder="Your Name"
             value={formData.name}
             onChange={handleChange}
-            className={`mt-1 px-3 py-2 w-full rounded-md bg-gray-800 border transition focus:outline-none ${
+            className={`mt-1 px-3 py-2 w-full rounded-md bg-gray-800 border ${
               errors.name ? "border-red-600" : "border-gray-700"
             } text-white`}
           />
@@ -109,7 +116,7 @@ export default function Contact() {
             placeholder="you@example.com"
             value={formData.email}
             onChange={handleChange}
-            className={`mt-1 px-3 py-2 w-full rounded-md bg-gray-800 border transition focus:outline-none ${
+            className={`mt-1 px-3 py-2 w-full rounded-md bg-gray-800 border ${
               errors.email ? "border-red-600" : "border-gray-700"
             } text-white`}
           />
@@ -124,7 +131,7 @@ export default function Contact() {
             placeholder="Your message..."
             value={formData.message}
             onChange={handleChange}
-            className={`mt-1 px-3 py-2 w-full rounded-md bg-gray-800 border transition focus:outline-none ${
+            className={`mt-1 px-3 py-2 w-full rounded-md bg-gray-800 border ${
               errors.message ? "border-red-600" : "border-gray-700"
             } text-white resize-none`}
           />
