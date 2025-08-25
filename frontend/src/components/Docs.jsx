@@ -24,14 +24,14 @@ export default function Docs() {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-200 pt-16">
-      {/* Mobile Menu Button */}
+    <div className="flex min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-200 pt-16 bg-gradient-to-br from-black to-gray-900">
+
       <button
   onClick={() => setSidebarOpen(!sidebarOpen)}
   className="md:hidden fixed top-20 left-1 z-50 p-1 rounded text-white bg-transparent text-3xl leading-none"
   aria-label="Open documentation menu"
 >
-  &rsaquo; 
+  &rsaquo; {/* This renders as "›" */}
 </button>
      
       <aside
@@ -59,13 +59,6 @@ export default function Docs() {
             </button>
           ))}
         </nav>
-
-        <div className="mt-8 pt-8 border-t border-gray-800 px-2 text-center text-gray-500 text-sm select-none">
-          Need help? <br />
-          <a href="mailto:support@jsonifypdf.com" className="text-green-500 hover:underline">
-            srijankumar77777@gmail.com
-          </a>
-        </div>
       </aside>
 
       {/* Overlay on mobile when sidebar is open */}
@@ -352,7 +345,7 @@ axios.post(url, file, {
       </div>
       <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700">
         <dt className="font-semibold text-xl mb-3 text-green-600 dark:text-green-400">What file types are accepted?</dt>
-        <dd className="leading-relaxed">Currently, only <strong>PDF</strong> files are accepted for processing.</dd>
+        <dd className="leading-relaxed">Currently, only <strong>PDF and PDF URLs(.pdf)</strong> files are accepted for processing.</dd>
       </div>
       <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700">
         <dt className="font-semibold text-xl mb-3 text-green-600 dark:text-green-400">Is my data stored?</dt>
