@@ -60,7 +60,7 @@ export default function Contact() {
     <section className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-br from-black to-gray-900 p-6">
       
       {/* Left side */}
-      <div className="flex flex-col items-center md:items-start md:w-1/2 text-white px-6 mb-10 md:mb-0">
+      <div className="flex flex-col items-center md:items-start md:w-1/2 mt-[50px] text-white px-6 mb-10 md:mb-0">
         <div aria-label="Connect logo" className="mb-6">
           <svg
             xmlns="http://www.w3.org/2000/svg"
