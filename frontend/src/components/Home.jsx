@@ -26,7 +26,7 @@ export default function Home({ handleNavigation }) {
         <a
           href="#"
           onClick={(e) => handleNavigation('docs', e)}
-          className="py-4 px-16 rounded-full border border-green-400 text-white bg-gradient-to-r from-green-600 to-cyan-600 font-bold text-lg shadow-lg hover:bg-green-700 hover:to-cyan-700 transition-all md:px-16 sm:px-12 xs:px-8"
+          className="py-4 px-16 rounded-full border border-green-400 text-white bg-gradient-to-t from-green-600 to-cyan-600 font-bold text-lg shadow-lg hover:bg-green-700 hover:to-cyan-700 transition-all md:px-16 sm:px-12 xs:px-8"
         >
           Get Started
         </a>
