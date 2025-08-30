@@ -46,10 +46,11 @@ export default function Terms() {
   By using <span className="font-semibold text-green-600 dark:text-green-400">JsonifyPDF</span>, you agree to our{' '}
   <button
     className="text-green-500 dark:text-green-400 hover:underline font-semibold"
-    onClick={() => setPage('terms')}
+    onClick={() => setPage('/terms')}
   >
     Terms and Privacy Policy
   </button>. All files you upload are handled securely and deleted after processing to protect your privacy.
+  Checkout Official repository on  <a href="https://github.com/SRIJAN-KUMAR7/pdf-json-microservice" target="_blank" className="hover:underline font-semibold text-green-600 dark:text-green-400">Git Hub</a>
 </p>
       </section>
     </main>
