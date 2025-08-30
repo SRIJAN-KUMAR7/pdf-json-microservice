@@ -34,3 +34,6 @@ Thumbs.db
 # Docker
 *.dockerignore
 *.env.docker
+
+.venv/
+app/__pycache__
