@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Terms from './Terms';
 
-const exampleUploadCode = `curl -X POST https://api.jsonifypdf.com/upload \\
-  -H "Authorization: Bearer <your-gemini-api-key>" \\
+const exampleUploadCode = `curl -X POST https://pdf-json.onrender.com/upload/ \\
+  -H "x-gemini-api: <your-gemini-api-key>" \\
   -F "file=@/home/user/sample.pdf"`;
 
-const exampleUrlCode = `curl -X POST https://api.jsonifypdf.com/upload-url \\
-  -H "Authorization: Bearer <your-gemini-api-key>" \\
+const exampleUrlCode = `curl -X POST https://pdf-json.onrender.com/upload-url/ \\
+  -H "x-gemini-api: <your-gemini-api-key>" \\
   -H "Content-Type: application/json" \\
   -d '{"pdf_url": "https://example.com/document.pdf"}'`;
 
@@ -27,12 +27,12 @@ export default function Docs() {
     <div className="flex min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-200 pt-16 bg-gradient-to-br from-black to-gray-900">
 
       <button
-  onClick={() => setSidebarOpen(!sidebarOpen)}
-  className="md:hidden fixed top-20 left-1 z-50 p-1 rounded text-white bg-transparent text-3xl leading-none"
-  aria-label="Open documentation menu"
->
-  &rsaquo; {/* This renders as "›" */}
-</button>
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className="md:hidden fixed top-20 left-1 z-50 p-1 rounded text-white bg-transparent text-3xl leading-none"
+        aria-label="Open documentation menu"
+      >
+        &rsaquo;
+      </button>
      
       <aside
         className={`fixed top-16 left-0 w-64 h-full bg-black border-r border-gray-800 pt-6 px-4 overflow-y-auto transition-transform duration-300 z-40
@@ -61,7 +61,6 @@ export default function Docs() {
         </nav>
       </aside>
 
-      {/* Overlay on mobile when sidebar is open */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
@@ -70,9 +69,7 @@ export default function Docs() {
         />
       )}
 
-      {/* Main Content */}
       <main className="flex-1 overflow-auto p-4 sm:p-8 max-w-4xl mx-auto">
-        {/* Introduction & Quickstart */}
         {activeSection === 'quickstart' && (
           <section id="quickstart" className="mb-16 scroll-mt-16">
             <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-700 pb-2">
@@ -80,7 +77,7 @@ export default function Docs() {
             </h2>
 
             <p className="mb-6 text-gray-700 dark:text-gray-300 leading-relaxed">
-              Welcome to JsonifyPDF! Easily convert your PDFs to structured JSON data using our AI-powered API. Make sure to pass your <code className="font-mono px-1 py-0.5 rounded bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">Gemini API key</code> for secure and private access.
+              Welcome to JsonifyPDF! Easily convert your PDFs to structured JSON data using our AI-powered API. Make sure to include your Gemini API key in the <code className="font-mono px-1 py-0.5 rounded bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">x-gemini-api</code> header for secure access.
             </p>
 
             <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">File Upload Method</h3>
@@ -90,7 +87,7 @@ export default function Docs() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                 </svg>
                 <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  Upload a PDF file directly with a POST request:
+                  Upload a PDF file with a POST request (max file size recommended is <strong>25MB</strong>):
                 </span>
 
                 <button
@@ -120,7 +117,7 @@ export default function Docs() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                 </svg>
                 <span className="text-gray-700 dark:text-gray-300 text-sm">
-                  Process a PDF document directly from any public URL:
+                  Process PDFs directly from any public URL by sending a POST request to <code>https://pdf-json.onrender.com/upload-url/</code>:
                 </span>
 
                 <button
@@ -145,7 +142,6 @@ export default function Docs() {
           </section>
         )}
 
-        {/* Authentication */}
         {activeSection === 'auth' && (
           <section id="auth" className="mb-16 scroll-mt-16">
             <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-700 pb-2">
@@ -158,14 +154,24 @@ export default function Docs() {
               </svg>
               Include your Gemini API Key in each request.
             </div>
-            <p className="mb-4 text-gray-700 dark:text-gray-300">Use the <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded font-mono text-sm border border-gray-200 dark:border-gray-700">Authorization</code> header, like so:</p>
+            <p className="mb-4 text-gray-700 dark:text-gray-300">Use the <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded font-mono text-sm border border-gray-200 dark:border-gray-700">x-gemini-api</code> header, like so:</p>
             <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded text-gray-800 dark:text-gray-200 font-mono text-sm border border-gray-200 dark:border-gray-700 max-w-full overflow-x-auto">
-              {`Authorization: Bearer <your-gemini-api-key>`}
+              {`x-gemini-api: <your-gemini-api-key>`}
             </pre>
+            <p className="mt-4 text-gray-700 dark:text-gray-300">
+              You can obtain a Gemini API key from{' '}
+              <a 
+                href="https://ai.google.dev/gemini-api/docs/api-key" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-green-600 dark:text-green-500 hover:underline"
+              >
+                Google's Gemini API documentation
+              </a>.
+            </p>
           </section>
         )}
 
-        {/* API Reference */}
         {activeSection === 'reference' && (
           <section id="reference" className="mb-16 scroll-mt-16">
             <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-700 pb-2">
@@ -177,9 +183,9 @@ export default function Docs() {
                 <svg className="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                 </svg>
-                POST /upload
+                POST /upload/
               </h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-4">Upload a PDF file for processing.</p>
+              <p className="text-gray-700 dark:text-gray-300 mb-4">Upload a PDF file for processing (max file size: 25MB).</p>
 
               <h4 className="font-medium text-gray-900 dark:text-white mb-2">Parameters</h4>
               <div className="overflow-x-auto rounded-md">
@@ -195,11 +201,11 @@ export default function Docs() {
                     <tr>
                       <td className="py-2 px-3 font-mono">file</td>
                       <td className="py-2 px-3">File (.pdf)</td>
-                      <td className="py-2 px-3">Required. The PDF document to parse.</td>
+                      <td className="py-2 px-3">Required. The PDF document to parse (max 25MB).</td>
                     </tr>
                     <tr>
-                      <td className="py-2 px-3 font-mono">Authorization</td>
-                      <td className="py-2 px-3">Header (Bearer token)</td>
+                      <td className="py-2 px-3 font-mono">x-gemini-api</td>
+                      <td className="py-2 px-3">Header</td>
                       <td className="py-2 px-3">Required. Your Gemini API key.</td>
                     </tr>
                   </tbody>
@@ -235,11 +241,71 @@ export default function Docs() {
               </p>
             </div>
 
-            {/* Add section for /upload-url similarly, if you like */}
+            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 mb-10">
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white flex items-center">
+                <svg className="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                </svg>
+                POST /upload-url/
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300 mb-4">Process a PDF from a public URL.</p>
+
+              <h4 className="font-medium text-gray-900 dark:text-white mb-2">Parameters</h4>
+              <div className="overflow-x-auto rounded-md">
+                <table className="w-full text-sm text-gray-700 dark:text-gray-300 mb-6">
+                  <thead className="bg-gray-50 dark:bg-gray-700 font-semibold">
+                    <tr>
+                      <th className="text-left py-2 px-3">Parameter</th>
+                      <th className="text left py-2 px-3">Type</th>
+                      <th className="text-left py-2 px-3">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                    <tr>
+                      <td className="py-2 px-3 font-mono">pdf_url</td>
+                      <td className="py-2 px-3">String (URL)</td>
+                      <td className="py-2 px-3">Required. Public URL of the PDF to process.</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 px-3 font-mono">x-gemini-api</td>
+                      <td className="py-2 px-3">Header</td>
+                      <td className="py-2 px-3">Required. Your Gemini API key.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h4 className="font-medium text-gray-900 dark:text-white mb-2">Request Example:</h4>
+              <pre className="bg-gray-100 dark:bg-gray-900 p-3 rounded mb-4 font-mono text-xs dark:text-gray-200 text-gray-900 overflow-auto max-w-full border border-gray-300 dark:border-gray-700">
+                {exampleUrlCode}
+              </pre>
+
+              <h4 className="font-medium text-gray-900 dark:text-white mb-2">Success Response:</h4>
+              <pre className="bg-gray-100 dark:bg-gray-900 p-3 rounded mb-4 font-mono text-xs dark:text-green-400 text-green-700 border border-gray-300 dark:border-gray-700 max-w-full overflow-auto">
+                {`{
+  "fields": {
+    "InvoiceNumber": "12345",
+    "Date": "2025-08-24"
+  },
+  "tables": []
+}`}
+              </pre>
+
+              <h4 className="font-medium text-gray-900 dark:text-white mb-2">Error Response:</h4>
+              <pre className="bg-gray-100 dark:bg-gray-900 p-3 rounded mb-4 font-mono text-xs dark:text-red-600 text-red-700 border border-gray-300 dark:border-gray-700 max-w-full overflow-auto">
+                {`{
+  "error": "Invalid URL or unable to access PDF",
+  "status": 400
+}`}
+              </pre>
+
+              <p className="text-gray-600 dark:text-gray-400 text-xs">
+                Status Codes: <span className="font-mono text-green-600">200</span> Success, <span className="font-mono text-red-600">401</span> Unauthorized, <span className="font-mono text-yellow-600">400</span> Bad Request
+              </p>
+            </div>
           </section>
         )}
 
-        {/* Code Examples */}
         {activeSection === 'examples' && (
           <section id="examples" className="mb-16 scroll-mt-16">
             <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-700 pb-2">Code Examples</h2>
@@ -249,8 +315,8 @@ export default function Docs() {
                 <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded font-mono text-xs dark:text-green-400 text-green-700 overflow-auto max-w-full border border-gray-300 dark:border-gray-700">
 {`import requests
 
-url = "https://api.jsonifypdf.com/upload"
-headers = {"Authorization": "Bearer <your-gemini-api-key>"}
+url = "https://pdf-json.onrender.com/upload/"
+headers = {"x-gemini-api": "<your-gemini-api-key>"}
 files = {"file": open("sample.pdf", "rb")}
 response = requests.post(url, headers=headers, files=files)
 print(response.json())`}
@@ -261,56 +327,104 @@ print(response.json())`}
                 <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded font-mono text-xs dark:text-green-400 text-green-700 overflow-auto max-w-full border border-gray-300 dark:border-gray-700">
 {`const axios = require('axios');
 const fs = require('fs');
+const FormData = require('form-data');
 
-const url = "https://api.jsonifypdf.com/upload";
+const url = "https://pdf-json.onrender.com/upload/";
 const apiKey = "<your-gemini-api-key>";
-const file = fs.createReadStream("sample.pdf");
 
-axios.post(url, file, {
+const formData = new FormData();
+formData.append('file', fs.createReadStream('sample.pdf'));
+
+axios.post(url, formData, {
   headers: {
-    "Authorization": \`Bearer \${apiKey}\`,
-    "Content-Type": "multipart/form-data"
+    "x-gemini-api": apiKey,
+    ...formData.getHeaders()
   }
 }).then(res => {
   console.log(res.data);
 });`}
                 </pre>
               </div>
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 shadow-sm">
+                <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">JavaScript (Fetch API)</h3>
+                <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded font-mono text-xs dark:text-green-400 text-green-700 overflow-auto max-w-full border border-gray-300 dark:border-gray-700">
+{`const formData = new FormData();
+formData.append('file', fileInput.files[0]);
+
+fetch('https://pdf-json.onrender.com/upload/', {
+  method: 'POST',
+  headers: {
+    'x-gemini-api': '<your-gemini-api-key>'
+  },
+  body: formData
+})
+.then(response => response.json())
+.then(data => console.log(data));`}
+                </pre>
+              </div>
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 shadow-sm">
+                <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">PHP</h3>
+                <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded font-mono text-xs dark:text-green-400 text-green-700 overflow-auto max-w-full border border-gray-300 dark:border-gray-700">
+{`<?php
+$url = 'https://pdf-json.onrender.com/upload/';
+$apiKey = '<your-gemini-api-key>';
+$filePath = '/path/to/sample.pdf';
+
+$headers = [
+  'x-gemini-api: ' . $apiKey
+];
+
+$postFields = [
+  'file' => new CURLFile($filePath, 'application/pdf', 'sample.pdf')
+];
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+echo $response;
+?>`}
+                </pre>
+              </div>
             </div>
           </section>
         )}
 
+        {activeSection === 'testing' && (
+          <section id="testing" className="mb-16 scroll-mt-16">
+            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-700 pb-2">
+              Testing the API (Postman / Thunder Client)
+            </h2>
+            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 md:p-8">
+              <div className="text-gray-700 dark:text-gray-300 space-y-6">
+                <p className="font-semibold">1. Create a <code>POST</code> request</p>
+                <p>Use either endpoint:</p>
+                <ul className="list-disc pl-6 space-y-1 mb-6">
+                  <li><code>https://pdf-json.onrender.com/upload/</code> → Upload a PDF file (use <strong>form-data</strong> with key <code>file</code>)</li>
+                  <li><code>https://pdf-json.onrender.com/upload-url/</code> → Send a PDF URL (use <strong>raw JSON</strong>)</li>
+                </ul>
 
-        {/* Testing the API (Postman / Thunder Client) */}
-{activeSection === 'testing' && (
-  <section id="testing" className="mb-16 scroll-mt-16">
-    <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-700 pb-2">
-      Testing the API (Postman / Thunder Client)
-    </h2>
-    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm p-6 md:p-8">
-      <div className="text-gray-700 dark:text-gray-300 space-y-6">
-        <p className="font-semibold">1. Create a <code>POST</code> request</p>
-        <p>Use either endpoint:</p>
-        <ul className="list-disc pl-6 space-y-1 mb-6">
-          <li><code>/upload</code> → Upload a PDF file (use <strong>form-data</strong>)</li>
-          <li><code>/upload-url</code> → Send a PDF URL (use <strong>raw JSON</strong>)</li>
-        </ul>
+                <p className="font-semibold">2. Headers</p>
+                <ul className="list-disc pl-6 space-y-1 mb-6">
+                  <li><code>Content-Type</code>: <code>application/json</code> (for URL method)</li>
+                  <li><code>x-gemini-api</code>: <code>&lt;your-gemini-api-key&gt;</code></li>
+                </ul>
 
-        <p className="font-semibold">2. Headers</p>
-        <ul className="list-disc pl-6 space-y-1 mb-6">
-          <li><code>Content-Type</code>: <code>application/json</code> (for URL method)</li>
-          <li><code>Authorization</code>: <code>Bearer &lt;your-gemini-api-key&gt;</code></li>
-        </ul>
-
-        <p className="font-semibold">3. Body Example (URL)</p>
-        <pre className="text-green-600 bg-gray-50 dark:bg-gray-900 p-4 rounded text-sm overflow-x-auto border border-gray-300 dark:border-gray-700 mb-6">
+                <p className="font-semibold">3. Body Example (URL)</p>
+                <pre className="text-green-600 bg-gray-50 dark:bg-gray-900 p-4 rounded text-sm overflow-x-auto border border-gray-300 dark:border-gray-700 mb-6">
 {`{
   "pdf_url": "https://example.com/resume.pdf"
 }`}
-        </pre>
+                </pre>
 
-        <p className="font-semibold">4. Response Example</p>
-        <pre className="text-green-300 bg-gray-50 dark:bg-gray-900 p-4 rounded text-sm overflow-x-auto border border-gray-300 dark:border-gray-700">
+                <p className="font-semibold">4. Response Example</p>
+                <pre className="text-green-300 bg-gray-50 dark:bg-gray-900 p-4 rounded text-sm overflow-x-auto border border-gray-300 dark:border-gray-700">
 {`{
   "json": {
     "personal_information": {
@@ -324,49 +438,52 @@ axios.post(url, file, {
     "projects": [...]
   }
 }`}
-        </pre>
-      </div>
-    </div>
-  </section>
-)}
+                </pre>
+              </div>
+            </div>
+          </section>
+        )}
 
-{/* FAQ & Troubleshooting */}
-{activeSection === 'faq' && (
-  <section id="faq" className="mb-16 scroll-mt-16">
-    <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-700 pb-2">
-      FAQ & Troubleshooting
-    </h2>
-    <dl className="space-y-8 text-gray-700 dark:text-gray-300">
-      <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700">
-        <dt className="font-semibold text-xl mb-3 text-green-600 dark:text-green-400">Why am I getting 'Invalid API Key'?</dt>
-        <dd className="leading-relaxed">
-          Check your Gemini API key's <strong>validity and quota</strong>. Make sure there are no extra spaces, typos, or expired keys.
-        </dd>
-      </div>
-      <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700">
-        <dt className="font-semibold text-xl mb-3 text-green-600 dark:text-green-400">What file types are accepted?</dt>
-        <dd className="leading-relaxed">Currently, only <strong>PDF and PDF URLs(.pdf)</strong> files are accepted for processing.</dd>
-      </div>
-      <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700">
-        <dt className="font-semibold text-xl mb-3 text-green-600 dark:text-green-400">Is my data stored?</dt>
-        <dd className="leading-relaxed">
-          Uploaded PDFs are processed <strong>securely and temporarily</strong>. We do not store your files after processing to ensure your privacy.
-        </dd>
-      </div>
-    </dl>
-  </section>
-)}
+        {activeSection === 'faq' && (
+          <section id="faq" className="mb-16 scroll-mt-16">
+            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-700 pb-2">
+              FAQ & Troubleshooting
+            </h2>
+            <dl className="space-y-8 text-gray-700 dark:text-gray-300">
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700">
+                <dt className="font-semibold text-xl mb-3 text-green-600 dark:text-green-400">Why am I getting 'Invalid API Key'?</dt>
+                <dd className="leading-relaxed">
+                  Check your Gemini API key's <strong>validity and quota</strong>. Make sure there are no extra spaces, typos, or expired keys.
+                </dd>
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700">
+                <dt className="font-semibold text-xl mb-3 text-green-600 dark:text-green-400">What file types are accepted?</dt>
+                <dd className="leading-relaxed">Currently, only <strong>PDF and PDF URLs(.pdf)</strong> files are accepted for processing.</dd>
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700">
+                <dt className="font-semibold text-xl mb-3 text-green-600 dark:text-green-400">Is my data stored?</dt>
+                <dd className="leading-relaxed">
+                  Uploaded PDFs are processed <strong>securely and temporarily</strong>. We do not store your files after processing to ensure your privacy.
+                </dd>
+              </div>
+              <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg shadow-md border border-gray-300 dark:border-gray-700">
+                <dt className="font-semibold text-xl mb-3 text-green-600 dark:text-green-400">What is the maximum file size?</dt>
+                <dd className="leading-relaxed">
+                  The maximum recommended file size is <strong>25MB</strong>. Larger files may experience processing timeouts.
+                </dd>
+              </div>
+            </dl>
+          </section>
+        )}
 
-{/* Terms & Legal */}
-{activeSection === 'legal' && (
-  <section id="legal" className="mb-16 scroll-mt-16">
-    <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-700 pb-2">
-      Terms & Legal
-    </h2>
-  <Terms/> 
-  </section>
-)}
-
+        {activeSection === 'legal' && (
+          <section id="legal" className="mb-16 scroll-mt-16">
+            <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white border-b border-gray-300 dark:border-gray-700 pb-2">
+              Terms & Legal
+            </h2>
+            <Terms/>
+          </section>
+        )}
       </main>
     </div>
   );
